@@ -10,6 +10,6 @@ namespace MVC.Models
         [NotNull]
         public string Name { get; set; }
         [NotNull]
-        public char Section { get; set; }
+        public string Section { get; set; }
     }
 }
