@@ -1,8 +1,10 @@
 using Infrastructure;
+using Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+//For enablig Application
+RegisterApplication.AddApplication(builder.Services);
 // Add services to the container.
 // add this  for enabling infrastructure
 RegisterInfrastructure.AddInfrastructure(builder.Services, builder.Configuration);
