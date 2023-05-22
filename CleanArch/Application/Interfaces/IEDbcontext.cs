@@ -7,16 +7,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Interfaces
-{ 
+{
     public interface IEDbcontext
     {
-       
+
         DbSet<Brand> Brands { get; set; }
 
-        DbSet<Category> Categories { get; set;}
+        DbSet<Category> Categories { get; set; }
 
-        DbSet<TestModel> TestModels { get; set;}
+        DbSet<TestModel> TestModels { get; set; }
 
-
+        Task<int> SaveChangesAsync(CancellationToken cancellationtoken);
+        int SaveChanges();
     }
 }

@@ -9,7 +9,7 @@ namespace AccessLayer
            private string connection_string = "Data Source=(localdb)\\ProjectModels;Initial Catalog=student_db;Integrated Security=True;Connect Timeout=30;trusted_connection=True;Encrypt=False";
     
 
-           public IEnumerable<Student> GetallStudents()
+        public IEnumerable<Student> GetallStudents()
         {
            List<Student> student_list = new List<Student>();
 
@@ -49,6 +49,28 @@ namespace AccessLayer
             return student_list;
         }
 
+        public Student GetStudentById(int Id) {
+            Student student = new Student();
+            using (SqlConnection conn = new SqlConnection(connection_string))
+            {
+
+                SqlCommand cmd = new SqlCommand($"SELECT * FROM Student WHERE id = {Id}",conn)
+                {
+                    CommandType = CommandType.Text
+                };
+                conn.Open();
+                var rdr = cmd.ExecuteReader();
+                
+                while(rdr.Read())
+                {
+                    student.Id = (int)rdr["Id"];
+                    student.Name = (string)rdr["Name"];
+                    student.Section = (string)rdr["Section"];
+                }
+                conn.Close();
+            }
+            return student;
+        }
         public bool AddNewStudent(Student student)
         {
             using(SqlConnection conn = new SqlConnection(connection_string))
@@ -74,6 +96,7 @@ namespace AccessLayer
             return false;
         }
 
+
         public bool UpdateStudent(Student student)
         {
             using(SqlConnection conn = new SqlConnection(connection_string))
@@ -87,7 +110,7 @@ namespace AccessLayer
                 cmd.Parameters.AddWithValue("@Id", student.Id);
                 conn.Open();
                 int affected_rows = cmd.ExecuteNonQuery();
-                conn.Close();
+               
                 if (affected_rows > 0)
                 {
                     return true;
@@ -109,7 +132,7 @@ namespace AccessLayer
                 cmd.Parameters.AddWithValue("@Id", Id);
                 conn.Open();
                 int affected_rows = cmd.ExecuteNonQuery();
-                conn.Close();
+                
                 if (affected_rows > 0)
                 {
                     return true;

@@ -24,5 +24,13 @@ namespace Infrastructure.Persistence
 
         public DbSet<TestModel> TestModels { get; set;}
 
+        public Task<int> SavChangesAsync(CancellationToken cancellationtoken)
+        {
+            return  base.SaveChangesAsync(cancellationtoken);
+        }
+        public int SaveChanges()
+        {
+            return base.SaveChanges();
+        }
     }
 }

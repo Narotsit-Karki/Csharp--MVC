@@ -6,6 +6,7 @@ using System.Web;
 using AccessLayer;
 using MVC.Controllers;
 
+
 namespace MVC.Controllers
 {
     public class StudentsController : Controller
@@ -49,8 +50,7 @@ namespace MVC.Controllers
         public IActionResult Edit(int Id)
         {
 
-            var students = sdal.GetallStudents();
-            Student model = students.Single(student => student.Id == Id);
+            Student model = sdal.GetStudentById(Id);
             return View(model);
         }
 
@@ -81,8 +81,7 @@ namespace MVC.Controllers
         }
         public IActionResult Details(int Id)
         {
-            var students = sdal.GetallStudents();
-            Student model = students.Single(student => student.Id == Id);
+            Student model = sdal.GetStudentById(Id);
             return View(model);
         }
 

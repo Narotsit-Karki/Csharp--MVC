@@ -14,7 +14,8 @@ namespace Infrastructure
     public static class RegisterInfrastructure
     {
         public static void AddInfrastructure(IServiceCollection services,IConfiguration configuration)
-        {
+
+        {// very necesary for migrations
             services.AddDbContext<IEDbcontext, EDbcontext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("ECOMMERCE"),b => b.MigrationsAssembly("API"));
